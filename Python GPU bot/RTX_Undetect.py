@@ -4,8 +4,8 @@ import undetected_chromedriver.v2 as uc
 from twilio.rest import Client
 import time
 
-twilio_authtoken = "493ed547f46061609ae87d9ffab9a6a5"
-twilio_account = "ACcf96f8355bf5e630fe9230f292232fd8"
+twilio_authtoken = "Number Here"
+twilio_account = "Number Here"
 
 twilio_number = "+447862146314"
 will_number = "+447717219474"
