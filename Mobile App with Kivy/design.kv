@@ -1,0 +1,119 @@
+#:kivy 2.0.0
+
+#All screens are childs of the RootWidget rule 
+
+<RootWidget>:
+    LoginScreen:
+        name: "login_screen"
+    SignUpScreen:
+        name: "sign_up_screen"
+    SignUpSuccessScreen:
+        name: "sign_up_success_screen"
+    MainApplicationScreen:
+        name: "main_application_screen"
+
+<LoginScreen>:
+    GridLayout:
+        cols:1
+        GridLayout:
+            cols:1
+            padding: 20, 20
+            spacing: 15, 15
+            Label:
+                text: "User Login"
+                font_size: '20sp'
+            TextInput:
+                id: username
+                hint_text: "Username"
+            TextInput:
+                id: password
+                password: True
+                hint_text: "Password"
+            RelativeLayout:
+                Button:
+                    text: "Login"
+                    on_press: root.login(root.ids.username.text, root.ids.password.text)
+                    size_hint: 0.3, 0.5
+                    pos_hint: {'top': 0.5, 'right': 0.6}
+            Label:
+                id: incorrect_login
+                text: ""
+        GridLayout:
+            cols:2
+            padding: 15,15
+            spacing: 15,0
+            size_hint: 0.2, 0.2
+            Button:
+                text: "Forgot Password?"
+                background_color: 1,1,1,0
+                opacity: 1 if self.state =='normal' else 0.5
+                color: 0.2,0.3,1,1
+            Button:
+                text: "Sign Up"
+                on_press: root.sign_up()
+                background_color: 1,1,1,0
+                opacity: 1 if self.state =='normal' else 0.5
+                color: 0.2,0.3,1,1
+
+<SignUpScreen>:
+    GridLayout:
+        cols:1
+        padding: 20,20
+        spacing: 15,15
+        RelativeLayout:
+            size_hint: 0.2,0.2
+            Button:
+                text: "Go Back"
+                on_press: root.go_back()
+                background_color: 1,1,1,0
+                opacity: 1 if self.state =='normal' else 0.5
+                color: 0.2,0.3,1,1 
+                pos_hint: {'top': 0.5, 'right': 0.6}    
+        Label:
+            text: "Sign up below!"
+        TextInput:
+            id: username
+            hint_text: "Username"
+        TextInput:
+            id: password
+            hint_text: "Password"
+        Button:
+            text: "Sign up!"
+            on_press: root.add_user(root.ids.username.text, root.ids.password.text)
+            on_press: root.sign_up_success()
+
+<SignUpSuccessScreen>:
+    GridLayout:
+        cols:1
+        Label:
+            text: "You have signed up successfully!"
+        Button:
+            text: "Go back to log in page"
+            on_press: root.log_in_page()
+
+<MainApplicationScreen>:
+    GridLayout:
+        cols:1
+        padding: 20,20
+        spacing: 20,20
+        RelativeLayout:
+            ImageButton: 
+                source: 'logout_hover.png' if self.hovered else 'logout_nothover.png'
+                on_press: root.log_out()
+                size_hint: 0.3,0.3
+                pos_hint: {'top':0.8, 'right':0.98}
+        Label:
+            text: "how are you feeling today?"
+        TextInput:
+            id: feelings
+            hint_text: "Type if you are feeling sad/happy/lonely..."
+        Button:
+            text: "Enlighten Me!"
+            on_press: root.get_quote(root.ids.feelings.text)
+        ScrollView:
+            Label:
+                id: quote
+                text: ""
+                text_size: self.width, None
+                height: self.texture_size[1]
+                size_hint_y: None
